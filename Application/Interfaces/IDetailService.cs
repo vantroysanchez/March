@@ -9,5 +9,7 @@ namespace Application.Interfaces
         IQueryable<Detail> GetAll();
         Detail GetById(int id);
         void Insert(DetailDto entity);
+        void Update(int id, DetailDto entity);
+        void Delete(int id);
     }
 }

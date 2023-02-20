@@ -43,11 +43,38 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<DetailDto> Post(DetailDto entity)
+        public IActionResult Post(DetailDto entity)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             _detailService.Insert(entity);
 
-            return CreatedAtAction("Detail", entity);
+            return StatusCode(201, entity);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, DetailDto entity)
+        {
+            if (id < 0 || !ModelState.IsValid)
+                return BadRequest();
+
+            _detailService.Update(id, entity);                
+
+            return StatusCode(200, entity);            
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var data = _detailService.GetById(id);
+
+            if (data == null)
+                return BadRequest();
+
+            _detailService.Delete(id);
+
+            return StatusCode(200, new { message = "Se eliminó el elemento " + id});
         }
     }
 }

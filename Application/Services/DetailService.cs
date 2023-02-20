@@ -19,7 +19,8 @@ namespace Application.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _uow.Detail.Delete(id);
+            _uow.SaveChanges();
         }
 
         public IQueryable<Detail> GetAll()
@@ -40,16 +41,19 @@ namespace Application.Services
         {            
             _uow.Detail.Insert(_mapper.Map<Detail>(entity));
             _uow.SaveChanges();
-        }
+        }        
 
-        public int SaveChanges()
+        public void Update(int id, DetailDto entity)
         {
-            throw new NotImplementedException();
-        }
+            var detail = _uow.Detail.GetById(id);
 
-        public void Update(Detail entity)
-        {
-            throw new NotImplementedException();
+            detail.Description = entity.Description;
+            detail.Quantity = entity.Quantity;
+            detail.Amount = entity.Amount;
+            detail.HeaderId = entity.HeaderId;
+
+            _uow.Detail.Update(detail);
+            _uow.SaveChanges();
         }
         
     }

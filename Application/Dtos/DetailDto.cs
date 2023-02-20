@@ -15,5 +15,10 @@ namespace Application.Dtos
         public int Quantity { get; set; }
         public decimal Amount { get; set; }
         public int HeaderId { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Detail, DetailDto>().ReverseMap();
+        }
     }
 }
