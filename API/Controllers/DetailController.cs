@@ -17,16 +17,37 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<DetailDto>> GetAll()
+        public IActionResult GetAll()
         {
-            var detail = _detailService.GetAll().ToList();
+            var detail = _detailService.GetAll();
 
             if (detail == null)
             {
                 return NotFound();
             }
 
-            return detail;
+            return Ok(detail);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var detail = _detailService.GetById(id);
+
+            if (detail == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(detail);
+        }
+
+        [HttpPost]
+        public ActionResult<DetailDto> Post(DetailDto entity)
+        {
+            _detailService.Insert(entity);
+
+            return CreatedAtAction("Detail", entity);
         }
     }
 }

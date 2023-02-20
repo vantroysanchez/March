@@ -1,10 +1,13 @@
-﻿using Application.Dtos;
+﻿using Application.Common.Interfaces;
+using Application.Dtos;
 using Domain.Entities;
 
 namespace Application.Interfaces
 {
     public interface IDetailService
     {
-        IEnumerable<Detail> GetAll();
+        IQueryable<Detail> GetAll();
+        Detail GetById(int id);
+        void Insert(DetailDto entity);
     }
 }

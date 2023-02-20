@@ -11,9 +11,9 @@ namespace Application.Dtos
 {
     public class DetailDto: IMapFrom<Detail>
     {
-        public int Id { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
         public decimal Amount { get; set; }
+        public int HeaderId { get; set; }
     }
 }
