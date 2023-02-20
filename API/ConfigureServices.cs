@@ -28,6 +28,9 @@ namespace API
                 });
             });
 
+            //services.AddControllers().AddNewtonsoftJson(
+            //    option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddAuthentication( x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
