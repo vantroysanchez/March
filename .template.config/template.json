@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Vantroy E. Sanchez P.",
+    "classifications": [
+        "Web",
+        "WebAPI"
+    ],
+    "identity": "WebAPI.Repository",
+    "name": "VS WebAPI Repository and UnitOfWork",
+    "description": "This is a basic template of a WebAPI with Clean Architecture and JWT.",
+    "shortName": "webapirepository",
+    "sourceName": "March",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "preferNameDirectory": true
+}
