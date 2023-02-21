@@ -2,6 +2,7 @@
 using Application.Dtos;
 using Application.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,9 +30,11 @@ namespace Application.Services
             _uow.SaveChanges();
         }
 
-        public IQueryable<Header> GetAll()
+        public IQueryable<HeaderDto> GetAll()
         {
-            var header = _uow.Header.GetAll().Include(x => x.Details);
+            var header = _uow.Header.GetAll().AsNoTracking()
+                .ProjectTo<HeaderDto>(_mapper.ConfigurationProvider)
+                .OrderBy(t => t.Code);
 
             return header;
         }

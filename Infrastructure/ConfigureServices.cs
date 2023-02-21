@@ -33,10 +33,8 @@ namespace Infrastructure
 
             services.AddScoped<ApplicationDbContextInitialiser>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();            
-
-            services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();          
+                        
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IHeaderRepository, HeaderRepository>();
             services.AddTransient<IDetailRepository, DetailRepository>();
@@ -44,6 +42,9 @@ namespace Infrastructure
             services.AddTransient<IDetailService, DetailService>();
             services.AddTransient<IHeaderService, HeaderService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<IDateTime, DateTimeService>();
+            services.AddTransient<IIdentityService, IdentityService>();
 
             return services;
         }

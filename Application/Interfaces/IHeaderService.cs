@@ -6,7 +6,7 @@ namespace Application.Interfaces
     public interface IHeaderService
     {
         void Delete(int id);
-        IQueryable<Header> GetAll();
+        IQueryable<HeaderDto> GetAll();
         Header GetById(int id);
         void Insert(HeaderDto entity);
         void Update(int id, HeaderDto entity);
