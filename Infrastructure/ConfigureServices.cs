@@ -36,12 +36,14 @@ namespace Infrastructure
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();          
                         
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
             services.AddTransient<IHeaderRepository, HeaderRepository>();
             services.AddTransient<IDetailRepository, DetailRepository>();
             services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddTransient<IDetailService, DetailService>();
             services.AddTransient<IHeaderService, HeaderService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IAsyncUnitOfWork, AsyncUnitOfWork>();
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();

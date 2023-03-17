@@ -17,9 +17,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var detail = _detailService.GetAll();
+            var detail = await _detailService.GetAllAsync();
 
             if (detail == null)
             {
@@ -30,9 +30,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var detail = _detailService.GetById(id);
+            var detail = await _detailService.GetById(id);
 
             if (detail == null)
             {
@@ -43,36 +43,36 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(DetailDto entity)
+        public async Task<IActionResult> Post(DetailDto entity)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _detailService.Insert(entity);
+            await _detailService.Insert(entity);
 
             return StatusCode(201, entity);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, DetailDto entity)
+        public async Task<IActionResult> Put(int id, DetailDto entity)
         {
             if (id < 0 || !ModelState.IsValid)
                 return BadRequest();
 
-            _detailService.Update(id, entity);                
+            await _detailService.Update(id, entity);                
 
             return StatusCode(200, entity);            
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var data = _detailService.GetById(id);
 
             if (data == null)
                 return BadRequest();
 
-            _detailService.Delete(id);
+            await _detailService.Delete(id);
 
             return StatusCode(200, new { message = "Se eliminó el elemento " + id});
         }

@@ -6,10 +6,10 @@ namespace Application.Interfaces
 {
     public interface IDetailService
     {
-        IQueryable<Detail> GetAll();
-        Detail GetById(int id);
-        void Insert(DetailDto entity);
-        void Update(int id, DetailDto entity);
-        void Delete(int id);
+        Task<IReadOnlyList<Detail>> GetAllAsync();        
+        Task<Detail> GetById(int id);
+        Task Insert(DetailDto entity);
+        Task Update(int id, DetailDto entity);
+        Task Delete(int id);
     }
 }

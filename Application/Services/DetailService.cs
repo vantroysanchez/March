@@ -8,52 +8,52 @@ namespace Application.Services
 {
     public class DetailService : IDetailService
     {
-        private readonly IUnitOfWork _uow;
+        private readonly IAsyncUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public DetailService(IUnitOfWork uow, IMapper mapper)
+        public DetailService(IAsyncUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _uow.Detail.Delete(id);
-            _uow.SaveChanges();
+            var entity = await _uow.Repository<Detail>().GetByIdAsync(id);
+
+            await _uow.Repository<Detail>().DeleteAsync(entity);
+            await _uow.SaveChangesAsync();
         }
 
-        public IQueryable<Detail> GetAll()
+        public async Task<IReadOnlyList<Detail>> GetAllAsync()
         {
-            var detail = _uow.Detail.GetAll();
+            return await _uow.Repository<Detail>().GetAllAsync();            
+        }
+
+        public async Task<Detail> GetById(int id)
+        {
+            var detail = await _uow.Repository<Detail>().GetByIdAsync(id);
 
             return detail;
         }
 
-        public Detail GetById(int id)
-        {
-            var detail = _uow.Detail.GetById(id);
-
-            return detail;
-        }
-
-        public void Insert(DetailDto entity)
+        public async Task Insert(DetailDto entity)
         {            
-            _uow.Detail.Insert(_mapper.Map<Detail>(entity));
-            _uow.SaveChanges();
+            await _uow.Repository<Detail>().AddAsync(_mapper.Map<Detail>(entity));
+            await _uow.SaveChangesAsync();
         }        
 
-        public void Update(int id, DetailDto entity)
+        public async Task Update(int id, DetailDto entity)
         {
-            var detail = _uow.Detail.GetById(id);
+            var detail = await _uow.Repository<Detail>().GetByIdAsync(id);
 
             detail.Description = entity.Description;
             detail.Quantity = entity.Quantity;
             detail.Amount = entity.Amount;
             detail.HeaderId = entity.HeaderId;
 
-            _uow.Detail.Update(detail);
-            _uow.SaveChanges();
+            await _uow.Repository<Detail>().UpdateAsync(detail);
+            await _uow.SaveChangesAsync();
         }
         
     }
